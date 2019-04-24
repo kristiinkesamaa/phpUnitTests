@@ -25,8 +25,9 @@ class ReceiptTest extends TestCase
     {
         //Create a variable of an array and the coupon value
         $input = [0, 2, 5, 8];
+        $coupon = null;
         // Give the $input variable to the total() method and save the output to a new variable
-        $output = $this->Receipt->total($input);
+        $output = $this->Receipt->total($input, $coupon);
         $this->assertEquals(
             15, // Expected value
             $output, // Value returned by total()
@@ -42,9 +43,10 @@ class ReceiptTest extends TestCase
         // Run tax() with the variables and save to $output
         $output = $this->Receipt->tax($inputAmount, $taxInput);
         $this->assertEquals(
-            1.00,
+            1.00, // Expected value
             $output, // Value returned by tax()
-            'The tax calculation should equal 1.00' // Message to return
+            'The tax calculation should equal 1.00'
         );
     }
+
 }
