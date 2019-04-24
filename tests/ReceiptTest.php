@@ -37,11 +37,12 @@ class ReceiptTest extends TestCase
         );
     }
 
-    public function provideTotal() {
+    public function provideTotal()
+    {
         return [
-            'ints totaling 16' => [[1,2,5,8], 16],
-            [[-1,2,5,8], 14],
-            [[1,2,8], 11],
+            'ints totaling 16' => [[1, 2, 5, 8], 16],
+            [[-1, 2, 5, 8], 14],
+            [[1, 2, 8], 11],
         ];
     }
 
@@ -57,6 +58,16 @@ class ReceiptTest extends TestCase
             $output, // Value returned by total()
             'When summing the total should equal 12' // Message to return
         );
+    }
+
+
+
+    public function testTotalException()
+    {
+        $input = [0, 2, 5, 8];
+        $coupon = 1.20;
+        $this->expectException('BadMethodCallException');
+        $this->Receipt->total($input, $coupon);
     }
 
     public function testPostTaxTotal()
