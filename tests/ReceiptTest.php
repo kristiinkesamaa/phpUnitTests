@@ -21,18 +21,28 @@ class ReceiptTest extends TestCase
         unset($this->Receipt);
     }
 
-    public function testTotal()
-    {
-        //Create a variable of an array and the coupon value
-        $input = [0, 2, 5, 8];
+
+    /**
+     * @dataProvider provideTotal
+     */
+
+    public function testTotal($items, $expected) {
         $coupon = null;
-        // Give the $input variable to the total() method and save the output to a new variable
-        $output = $this->Receipt->total($input, $coupon);
+        $output = $this->Receipt->total($items, $coupon);
         $this->assertEquals(
-            15, // Expected value
+            $expected, // Expected value
             $output, // Value returned by total()
-            'When summing the total should equal 15' // Message to return
+            "When summing the total should equal {$expected}"
         );
+    }
+
+    // provided numbers
+    public function provideTotal() {
+        return [
+            [[1,2,5,8], 16],
+            [[-1,2,5,8], 14],
+            [[1,2,8], 11],
+        ];
     }
 
     public function testTotalAndCoupon()
